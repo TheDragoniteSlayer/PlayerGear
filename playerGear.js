@@ -952,207 +952,234 @@ window.playerGear = Object.assign(window.playerGear || {}, {
         }
     },
     
-    backpack:{
-        
-none: { mesh: function(){}, applyStats: function(){} }
-        
-(function() {
-    var items = {
-        pouch: {
-            mesh: function(box, cylinder, sphere){
-                sphere(0,0,-0.5,0.6,2,0.9,0.7,0.3);
-                sphere(0,0.3,-0.5,0.2,2,0.9*0.7,0.7*0.7,0.3*0.7);
-            },
-            applyStats: function(stats, player){
-                stats.capacity += 200;
-            },
-            desc: 'A small bag.<br><br>+200 capacity',
-            cost: ['0 honey']
-        },
-        jar: {
-            mesh: function(box, cylinder, sphere){
-                cylinder(0,0,-0.6,0.4,0.75,15,0.9*1.3,0.7*1.3,0.3*1.3,90,0,0);
-                cylinder(0,0.33,-0.6,0.43,0.25,15,0.6,0.6,0.6,90,0,0);
-            },
-            applyStats: function(stats, player){
-                stats.capacity += 750;
-            },
-            desc: 'A durable plastic jar. Holds much more than the Pouch!<br><br>+750 capacity',
-            cost: ['600 honey']
-        },
-        backpack: {
-            mesh: function(box, cylinder, sphere){
-                box(0,0,-0.4,0.55,0.7,0.35,false,[0.2,0.8,0.2]);
-                box(0.13,0.1,-0.41,0.2,0.2,0.35,false,[0,0.5,0]);
-                box(-0.13,0.1,-0.41,0.2,0.2,0.35,false,[0,0.5,0]);
-                box(0,-0.15,-0.41,0.48,0.2,0.35,false,[1.3,1,0]);
-                cylinder(0,0.7*0.5,-0.4,0.35*0.5,0.55,15,0.2,0.8,0.2,90,0,90);
-            },
-            applyStats: function(stats, player){
-                stats.capacity += 3500;
-            },
-            desc: 'A heavy-duty backpack.<br><br>+3,500 capacity',
-            cost: ['5000 honey']
-        },
-        canister: {
-            mesh: function(box, cylinder, sphere){
-                cylinder(0,-0.15,-0.6,0.4,0.5,11,1.3,1.3,1.3,90,0,0);
-                cylinder(0,0.1,-0.6,0.2,0.5,11,0.7,1,1.3,90,0,0);
-                cylinder(0,0.3,-0.6,0.333,0.2,11,1.3,1.3,1.3,90,0,0);
-            },
-            applyStats: function(stats, player){
-                stats.capacity += 10000;
-                stats.convertRate *= 1.3;
-            },
-            desc: 'A high-tech container that improves honey conversion speed.<br><br>+10,000 capacity<br>x1.3 convert rate',
-            cost: ['22000 honey']
-        },
-        megaJug: {
-            mesh: function(box, cylinder, sphere){
-                cylinder(0,-0.1,-0.7,0.45,0.85,11,0.9*1.4,0.7*1.4,0.4*1.4,90,0,0);
-                cylinder(0,-0.1,-0.7,0.451,0.2,11,0,0.45,0,90,0,0);
-                sphere(0,-0.1+0.85*0.5,-0.7,0.4*2,2,0,0.4,0);
-                cylinder(0,0.6,-0.7,0.1,0.5,5,0,0.5,0,90,0,0);
-            },
-            applyStats: function(stats, player){
-                stats.capacity += 25000;
-                stats.convertRate *= 1.4;
-            },
-            desc: 'A humongous jug!<br><br>+25,000 capacity<br>x1.4 convert rate',
-            cost: ['50000 honey']
-        },
-        compressor: {
-            mesh: function(box, cylinder, sphere){
-                cylinder(0.2,-0.1,-0.5,0.2,0.9,10,1.25,1.25,1.25,90,0,0);
-                cylinder(-0.2,-0.1,-0.5,0.2,0.9,10,1.25,1.25,1.25,90,0,0);
-                sphere(0.2,-0.1+0.9*0.5,-0.5,0.2*2,2,1.25,1.25,1.25);
-                sphere(-0.2,-0.1+0.9*0.5,-0.5,0.2*2,2,1.25,1.25,1.25);
-                box(0,0,-0.5,0.95,0.3,0.4,false,[0.4,0.4,0.4]);
-                box(0.35,-0.4,-0.6,0.25,0.5,0.2,[10,-30,0],[0.9,0.9,0.9]);
-                box(-0.35,-0.4,-0.6,0.25,0.5,0.2,[10,30,0],[0.9,0.9,0.9]);
-            },
-            applyStats: function(stats, player){
-                stats.capacity += 50000;
-                stats.convertRate *= 1.55;
-            },
-            desc: 'A machine which packs pollen down to increase storage.<br><br>+50,000 capacity<br>x1.55 convert rate',
-            cost: ['160000 honey']
-        },
-        // … add the rest of your items here …
-        coconutCanister: {
-            mesh: function(box, cylinder, sphere){
-                sphere(0,0,-0.6,1.3,2,0.4,0.2,0);
-                sphere(-0.3,0.45,-0.6,0.4,1,0.1,0.05,0);
-                sphere(-0.15,0.4,-0.9,0.4,1,0.1,0.05,0);
-                sphere(0.05,0.5,-0.6,0.4,1,0.1,0.05,0);
-                cylinder(0,0,-0.6,0.3,1.3,10,1.2,1.2,1.2,90,0,90);
-                cylinder(-0.425,0,-0.6,0.2,0.57,10,100,0,0,90,0,90);
-                cylinder(0.425,0,-0.6,0.2,0.57,10,0,0,100,90,0,90);
-            },
-            applyStats: function(stats, player){
-                stats.capacity += 3500000;
-                stats.convertRate *= 5;
-                stats.instantRedConversion = window.applyPercentage(stats.instantRedConversion,0.15);
-                stats.instantBlueConversion = window.applyPercentage(stats.instantBlueConversion,0.15);
-                stats.instantWhiteConversion = window.applyPercentage(stats.instantWhiteConversion,0.1);
-                stats.whitePollen *= 1.25*window.POLLEN_MULT;
-                stats.redPollen *= 1.25*window.POLLEN_MULT;
-                stats.bluePollen *= 1.25*window.POLLEN_MULT;
-                stats.whiteBeeAttack += 2;
-                stats.redBeeAttack += 2;
-                stats.blueBeeAttack += 2;
-                stats.defense += 0.1;
-                stats.honeyAtHive *= 1.1;
-                player.addEffect('inspireCoconutsPassive');
-                player.addEffect('emergencyCoconutShieldPassive');
-            },
-            desc: 'A back-mounted coconut that protects you during emergencies.<br><br>+2,500,000 capacity<br>x5 convert rate<br>+15% instant conversion<br>+10% instant white conversion<br>x1.25 pollen<br>x1.25 white pollen<br>+2 bee attack<br>+10% defense<br>+Passive: Emergengy Coconut Shield<br>+Passive: Inspire Coconuts',
-            cost: ['20000000000 honey','75 tropicalDrink','100 redExtract','100 blueExtract']
-        }
-    };
-    
-    // optional: expose globally
-    window.items = items;
-})();
+backpack:{
 
-    boots:{
-        
-        none:{mesh:function(){},applyStats:function(){}},
-        
-        gummyBoots:{
-            
-            mesh:function(box,cylinder,sphere){
-                
-                box(-0.2,-0.5,0.04,0.36,0.15,0.73,false,[0.1*1.75,1*1.75,0.5*1.75])
-                box(0.2,-0.5,0.04,0.36,0.15,0.73,false,[0.1*1.75,1*1.75,0.5*1.75])
-                box(-0.2,-0.35,0,0.325,0.2,0.6,false,[1*1.75,0.2*1.75,1*1.75])
-                box(0.2,-0.35,0,0.325,0.2,0.6,false,[1*1.75,0.2*1.75,1*1.75])
-                box(-0.2,-0.35,0.2,0.15,0.05,0.25,false,[0.1*1.75,1*1.75,0.5*1.75])
-                box(0.2,-0.35,0.2,0.15,0.05,0.25,false,[0.1*1.75,1*1.75,0.5*1.75])
-            },
-            
-            applyStats:function(stats,player){
-                
-                stats.movementCollection+=15
-                stats.walkSpeed*=1.2
-                stats.jumpPower*=1.4
-                stats.pollenFromCoconuts*=2*window.POLLEN_MULT
-                stats.goo*=1.25
-                stats.beeSpeed*=1.3
-                stats.honeyFromTokens*=1.25
-                stats.redPollen*=1.1*window.POLLEN_MULT
-                stats.bluePollen*=1.1*window.POLLEN_MULT
-                stats.whitePollen*=1.1*window.POLLEN_MULT
-                stats.beeAttack*=1.1
-                stats.convertRateAtHive*=2
-                player.addEffect('coconutHastePassive')
-            },
-            desc:'Squishy boots that leave a trail of Goo wherever you go.<br><br>+15 movement collection<br>x1.25 goo<br>x1.3 bee speed<br>x1.25 honey from tokens<br>x1.1 pollen<br>x1.1 bee attack<br>x2 pollen from coconuts<br>x2 convert rate at hive<br>x1.2 movespeed<br>x1.4 jump power<br>+Passive: Goo Trail<br>+Passive: Coconut Haste',
-            cost:['50000000000 honey','350 glue','150 glitter','150 redExtract','150 blueExtract'],
-        },
+    none: { mesh: function(){}, applyStats: function(){} },
 
-        coconutClogs:{
-            
-            mesh:function(box,cylinder,sphere){
-                
-                box(-0.2,-0.5,0.04,0.37,0.15,0.74,false,[0,0,1.5])
-                box(0.2,-0.5,0.04,0.37,0.15,0.74,false,[1.5,0,0])
-                box(-0.2,-0.4,0.04,0.36,0.15,0.73,false,[1.35,1.35,1.35])
-                box(0.2,-0.4,0.04,0.36,0.15,0.73,false,[1.35,1.35,1.35])
-                box(-0.2,-0.25,0,0.325,0.2,0.6,false,[0.4*1.3,0.3*1.3,0.2*1.3])
-                box(0.2,-0.25,0,0.325,0.2,0.6,false,[0.4*1.3,0.3*1.3,0.2*1.3])
-                box(-0.2,-0.25,0.2,0.15,0.05,0.25,false,[1.35,1.35,1.35])
-                box(0.2,-0.25,0.2,0.15,0.05,0.25,false,[1.35,1.35,1.35])
-                
-                sphere(0.2,-0.35,0.4,0.25,1,0.4*1.3,0.3*1.3,0.2*1.3)
-                sphere(-0.2,-0.35,0.4,0.25,1,0.4*1.3,0.3*1.3,0.2*1.3)
-
-                sphere(-0.2+0.07,-0.3,0.4+0.08,0.07,0,0.4*0.7,0.3*0.7,0.2*0.7)
-                sphere(-0.2-0.01,-0.3+0.02,0.4+0.1,0.07,0,0.4*0.7,0.3*0.7,0.2*0.7)
-                sphere(-0.2+0.04,-0.3+0.05,0.4+0.02,0.07,0,0.4*0.7,0.3*0.7,0.2*0.7)
-                sphere(0.2-0.07,-0.3,0.4+0.08,0.07,0,0.4*0.7,0.3*0.7,0.2*0.7)
-                sphere(0.2+0.01,-0.3+0.02,0.4+0.1,0.07,0,0.4*0.7,0.3*0.7,0.2*0.7)
-                sphere(0.2-0.04,-0.3+0.05,0.4+0.02,0.07,0,0.4*0.7,0.3*0.7,0.2*0.7)
-            },
-            
-            applyStats:function(stats,player){
-                
-                stats.movementCollection+=12
-                stats.walkSpeed*=1.175
-                stats.jumpPower*=1.385
-                stats.pollenFromCoconuts*=2*window.POLLEN_MULT
-                stats.redPollen*=1.1*window.POLLEN_MULT
-                stats.whitePollen*=1.1*window.POLLEN_MULT
-                stats.bluePollen*=1.1*window.POLLEN_MULT
-                stats.honeyFromTokens*=1.25
-                stats.beeAttack*=1.05
-                stats.convertRateAtHive*=1.5
-                stats.beeSpeed*=1.25
-                player.addEffect('coconutHastePassive')
-            },
-            desc:'Kick around coconuts with this pair of clunky kicks for a surge of speed.<br><br>+12 movement collection<br>x1.25 honey from tokens<br>x1.1 pollen<br>x1.25 bee speed<br>x1.05 bee attack<br>x2 pollen from coconuts<br>x1.5 convert rate at hive<br>x1.175 movespeed<br>x1.385 jump power<br>+Passive: Coconut Haste',
-            cost:['5000000000 honey','100 coconut','25 tropicalDrink','35 glue','50 oil'],
+    pouch: {
+        mesh: function(box, cylinder, sphere){
+            sphere(0,0,-0.5,0.6,2,0.9,0.7,0.3);
+            sphere(0,0.3,-0.5,0.2,2,0.9*0.7,0.7*0.7,0.3*0.7);
         },
+        applyStats: function(stats, player){
+            stats.capacity += 200;
+        },
+        desc: 'A small bag.<br><br>+200 capacity',
+        cost: ['0 honey']
+    },
+
+    jar: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,0,-0.6,0.4,0.75,15,0.9*1.3,0.7*1.3,0.3*1.3,90,0,0);
+            cylinder(0,0.33,-0.6,0.43,0.25,15,0.6,0.6,0.6,90,0,0);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 750;
+        },
+        desc: 'A durable plastic jar. Holds much more than the Pouch!<br><br>+750 capacity',
+        cost: ['600 honey']
+    },
+
+    backpack: {
+        mesh: function(box, cylinder, sphere){
+            box(0,0,-0.4,0.55,0.7,0.35,false,[0.2,0.8,0.2]);
+            box(0.13,0.1,-0.41,0.2,0.2,0.35,false,[0,0.5,0]);
+            box(-0.13,0.1,-0.41,0.2,0.2,0.35,false,[0,0.5,0]);
+            box(0,-0.15,-0.41,0.48,0.2,0.35,false,[1.3,1,0]);
+            cylinder(0,0.7*0.5,-0.4,0.35*0.5,0.55,15,0.2,0.8,0.2,90,0,90);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 3500;
+        },
+        desc: 'A heavy-duty backpack.<br><br>+3,500 capacity',
+        cost: ['5000 honey']
+    },
+
+    canister: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,-0.15,-0.6,0.4,0.5,11,1.3,1.3,1.3,90,0,0);
+            cylinder(0,0.1,-0.6,0.2,0.5,11,0.7,1,1.3,90,0,0);
+            cylinder(0,0.3,-0.6,0.333,0.2,11,1.3,1.3,1.3,90,0,0);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 10000;
+            stats.convertRate *= 1.3;
+        },
+        desc: 'A high-tech container that improves honey conversion speed.<br><br>+10,000 capacity<br>x1.3 convert rate',
+        cost: ['22000 honey']
+    },
+
+    megaJug: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,-0.1,-0.7,0.45,0.85,11,0.9*1.4,0.7*1.4,0.4*1.4,90,0,0);
+            cylinder(0,-0.1,-0.7,0.451,0.2,11,0,0.45,0,90,0,0);
+            sphere(0,-0.1+0.85*0.5,-0.7,0.4*2,2,0,0.4,0);
+            cylinder(0,0.6,-0.7,0.1,0.5,5,0,0.5,0,90,0,0);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 25000;
+            stats.convertRate *= 1.4;
+        },
+        desc: 'A humongous jug!<br><br>+25,000 capacity<br>x1.4 convert rate',
+        cost: ['50000 honey']
+    },
+
+    compressor: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0.2,-0.1,-0.5,0.2,0.9,10,1.25,1.25,1.25,90,0,0);
+            cylinder(-0.2,-0.1,-0.5,0.2,0.9,10,1.25,1.25,1.25,90,0,0);
+            sphere(0.2,-0.1+0.9*0.5,-0.5,0.2*2,2,1.25,1.25,1.25);
+            sphere(-0.2,-0.1+0.9*0.5,-0.5,0.2*2,2,1.25,1.25,1.25);
+            box(0,0,-0.5,0.95,0.3,0.4,false,[0.4,0.4,0.4]);
+            box(0.35,-0.4,-0.6,0.25,0.5,0.2,[10,-30,0],[0.9,0.9,0.9]);
+            box(-0.35,-0.4,-0.6,0.25,0.5,0.2,[10,30,0],[0.9,0.9,0.9]);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 50000;
+            stats.convertRate *= 1.55;
+        },
+        desc: 'A machine which packs pollen down to increase storage.<br><br>+50,000 capacity<br>x1.55 convert rate',
+        cost: ['160000 honey']
+    },
+
+    eliteBarrel: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,0.4*0.5,-0.6,0.4,0.4,15,0.9*0.5,0.6*0.5,0.3*0.5,90,0,0,0.3);
+            cylinder(0,-0.4*0.5,-0.6,0.3,0.4,15,0.9*0.5,0.6*0.5,0.3*0.5,90,0,0,0.4);
+            cylinder(0,0,-0.6,0.401,0.1,15,0.1,0.1,0.1,90,0,0);
+            cylinder(0,0.2+0.2,-0.6,0.29,0.1,15,0.1,0.1,0.1,90,0,0);
+            cylinder(0,-0.2-0.2,-0.6,0.29,0.1,15,0.1,0.1,0.1,90,0,0);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 125000;
+            stats.convertRate *= 1.7;
+        },
+        desc: "The world's most advanced barrel.<br><br>+125,000 capacity<br>x1.7 convert rate",
+        cost: ['650000 honey']
+    },
+
+    portOHive: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,0,-0.7,0.5,0.15,10,1.5,1.4,1,90,0,0);
+            cylinder(0,0.2,-0.675,0.43,0.10,15,1.5,1.4,1,90,0,0);
+            cylinder(0,0.35,-0.6,0.25,0.15,10,1.5,1.4,1,90,0,0);
+            cylinder(0,-0.2,-0.675,0.43,0.10,15,1.5,1.4,1,90,0,0);
+            cylinder(0,-0.35,-0.6,0.25,0.10,15,1.5,1.4,1,90,0,0);
+            sphere(0,0,-0.65,0.9,1,1.5,1.4,1);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 250000;
+            stats.convertRate *= 2;
+            stats.instantRedConversion = window.applyPercentage(stats.instantRedConversion,0.05);
+            stats.instantBlueConversion = window.applyPercentage(stats.instantBlueConversion,0.05);
+            stats.instantWhiteConversion = window.applyPercentage(stats.instantWhiteConversion,0.05);
+        },
+        desc: 'A miniature hive you can wear on your back! Instantly converts some pollen to honey.<br>+250,000 capacity<br>x2 convert rate<br>+5% instant conversion',
+        cost: ['1250000 honey']
+    },
+
+    redPortOHive: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,0,-0.7,0.5,0.15,10,1.4,0,0,90,0,0);
+            cylinder(0,0.2,-0.675,0.43,0.10,15,1.4,0,0,90,0,0);
+            cylinder(0,0.35,-0.6,0.25,0.15,10,1.4,0,0,90,0,0);
+            cylinder(0,-0.2,-0.675,0.43,0.10,15,1.4,0,0,90,0,0);
+            cylinder(0,-0.35,-0.6,0.25,0.10,15,1.4,0,0,90,0,0);
+            sphere(0,0,-0.65,0.9,1,1.4,0,0);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 450000;
+            stats.convertRate *= 2.5;
+            stats.instantRedConversion = window.applyPercentage(stats.instantRedConversion,0.1);
+            stats.redPollen *= 1.1*window.POLLEN_MULT;
+            stats.redBeeAttack += 1;
+        },
+        desc: 'A Port-O-Hive dipped in shiny red paint. Works best for red bees and red pollen.<br>+450,000 capacity<br>x2.5 convert rate<br>+10% instant red conversion<br>x1.1 red pollen<br>+1 red bee attack',
+        cost: ['7500000 honey']
+    },
+
+    bluePortOHive: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,0,-0.7,0.5,0.15,10,0,0,1.4,90,0,0);
+            cylinder(0,0.2,-0.675,0.43,0.10,15,0,0,1.4,90,0,0);
+            cylinder(0,0.35,-0.6,0.25,0.15,10,0,0,1.4,90,0,0);
+            cylinder(0,-0.2,-0.675,0.43,0.10,15,0,0,1.4,90,0,0);
+            cylinder(0,-0.35,-0.6,0.25,0.10,15,0,0,1.4,90,0,0);
+            sphere(0,0,-0.65,0.9,1,0,0,1.4);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 450000;
+            stats.convertRate *= 2.5;
+            stats.instantBlueConversion = window.applyPercentage(stats.instantBlueConversion,0.1);
+            stats.bluePollen *= 1.1*window.POLLEN_MULT;
+            stats.blueBeeAttack += 1;
+        },
+        desc: 'A Port-O-Hive dipped in shiny blue paint. Works best for blue bees and blue pollen.<br>+450,000 capacity<br>x2.5 convert rate<br>+10% instant blue conversion<br>x1.1 blue pollen<br>+1 blue bee attack',
+        cost: ['7500000 honey']
+    },
+
+    porcelainOHive: {
+        mesh: function(box, cylinder, sphere){
+            cylinder(0,0,-0.7,0.5,0.15,10,1.3,1.3,1.3,90,0,0);
+            cylinder(0,0.2,-0.675,0.43,0.10,15,1.3,1.3,1.3,90,0,0);
+            cylinder(0,0.35,-0.6,0.25,0.15,10,1.3,1.3,1.3,90,0,0);
+            cylinder(0,-0.2,-0.675,0.43,0.10,15,1.3,1.3,1.3,90,0,0);
+            cylinder(0,-0.35,-0.6,0.25,0.10,15,1.3,1.3,1.3,90,0,0);
+            sphere(0,0,-0.65,0.9,1,1.3,1.3,1.3);
+            box(0.4,0.1,-0.6,0.1,0.2,0.6,[0,25,20],[0,0,1.45]);
+            box(0.4,-0.1,-0.6,0.1,0.2,0.4,[0,25,-10],[0,0,1.45]);
+            box(-0.4,0.1,-0.6,0.1,0.2,0.6,[0,-25,20],[1.45,0,0]);
+            box(-0.4,-0.1,-0.6,0.1,0.2,0.4,[0,-25,-10],[1.45,0,0]);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 1000000;
+            stats.convertRate *= 3;
+            stats.instantRedConversion = window.applyPercentage(stats.instantRedConversion,0.1);
+            stats.instantBlueConversion = window.applyPercentage(stats.instantBlueConversion,0.1);
+            stats.instantWhiteConversion = window.applyPercentage(stats.instantWhiteConversion,0.1);
+            stats.whitePollen *= 1.5*window.POLLEN_MULT;
+            stats.bluePollen *= 1.1*window.POLLEN_MULT;
+            stats.redPollen *= 1.1*window.POLLEN_MULT;
+            stats.redBeeAttack += 1;
+            stats.blueBeeAttack += 1;
+            stats.whiteBeeAttack += 1;
+        },
+        desc: 'A rare and precious Port-O-Hive that boosts white pollen.<br><br>+1,000,000 capacity<br>x3 convert rate<br>+10% instant conversion<br>x1.5 white pollen<br>x1.1 red pollen<br>x1.1 blue pollen<br>+1 bee attack',
+        cost: ['150000000 honey']
+    },
+
+    coconutCanister: {
+        mesh: function(box, cylinder, sphere){
+            sphere(0,0,-0.6,1.3,2,0.4,0.2,0);
+            sphere(-0.3,0.45,-0.6,0.4,1,0.1,0.05,0);
+            sphere(-0.15,0.4,-0.9,0.4,1,0.1,0.05,0);
+            sphere(0.05,0.5,-0.6,0.4,1,0.1,0.05,0);
+            cylinder(0,0,-0.6,0.3,1.3,10,1.2,1.2,1.2,90,0,90);
+            cylinder(-0.425,0,-0.6,0.2,0.57,10,100,0,0,90,0,90);
+            cylinder(0.425,0,-0.6,0.2,0.57,10,0,0,100,90,0,90);
+        },
+        applyStats: function(stats, player){
+            stats.capacity += 3500000;
+            stats.convertRate *= 5;
+            stats.instantRedConversion = window.applyPercentage(stats.instantRedConversion,0.15);
+            stats.instantBlueConversion = window.applyPercentage(stats.instantBlueConversion,0.15);
+            stats.instantWhiteConversion = window.applyPercentage(stats.instantWhiteConversion,0.1);
+            stats.whitePollen *= 1.25*window.POLLEN_MULT;
+            stats.redPollen *= 1.25*window.POLLEN_MULT;
+            stats.bluePollen *= 1.25*window.POLLEN_MULT;
+            stats.whiteBeeAttack += 2;
+            stats.redBeeAttack += 2;
+            stats.blueBeeAttack += 2;
+            stats.defense += 0.1;
+            stats.honeyAtHive *= 1.1;
+            player.addEffect('inspireCoconutsPassive');
+            player.addEffect('emergencyCoconutShieldPassive');
+        },
+        desc: 'A back-mounted coconut that protects you during emergencies.<br><br>+2,500,000 capacity<br>x5 convert rate<br>+15% instant conversion<br>+10% instant white conversion<br>x1.25 pollen<br>x1.25 white pollen<br>+2 bee attack<br>+10% defense<br>+Passive: Emergengy Coconut Shield<br>+Passive: Inspire Coconuts',
+        cost: ['20000000000 honey','75 tropicalDrink','100 redExtract','100 blueExtract']
+    },
+
+}, 
         
         mondoBoots:{
             
