@@ -954,7 +954,7 @@ window.playerGear = Object.assign(window.playerGear || {}, {
     
     backpack:{
         
-        none:{mesh:function(){},applyStats:function()} ,
+none: { mesh: function(){}, applyStats: function(){} }
         
         pouch:{
             
