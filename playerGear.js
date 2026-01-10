@@ -956,22 +956,17 @@ window.playerGear = Object.assign(window.playerGear || {}, {
         
 none: { mesh: function(){}, applyStats: function(){} }
         
-        pouch:{
-            
-            mesh:function(box,cylinder,sphere){
-                
-                sphere(0,0,-0.5,0.6,2,0.9,0.7,0.3)
-                sphere(0,0.3,-0.5,0.2,2,0.9*0.7,0.7*0.7,0.3*0.7)
-            },
-            
-            applyStats:function(stats,player){
-                
-                stats.capacity+=200
-            },
-            desc:'A small bag.<br><br>+200 capacity',
-            cost:['0 honey'],
-        },
-
+       let pouch = {
+    mesh: function(box, cylinder, sphere) {
+        sphere(0,0,-0.5,0.6,2,0.9,0.7,0.3)
+        sphere(0,0.3,-0.5,0.2,2,0.9*0.7,0.7*0.7,0.3*0.7)
+    },
+    applyStats: function(stats, player) {
+        stats.capacity += 200
+    },
+    desc: 'A small bag.<br><br>+200 capacity',
+    cost: ['0 honey']
+};
         jar:{
             
             mesh:function(box,cylinder,sphere){
